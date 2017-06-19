@@ -1,12 +1,13 @@
 package com.nerdery.kotlin.manufacturer
 
+import com.nerdery.kotlin.routes.Routes
 import org.springframework.web.bind.annotation.*
 
 /**
  * Controller for Manufacturers
  */
 @RestController
-@RequestMapping("/manufacturers")
+@RequestMapping(Routes.MANUFACTURERS_ROOT)
 class ManufacturerController (val manufacturerService: ManufacturerService) {
 
     @GetMapping
