@@ -18,7 +18,10 @@ class ManufacturerService(val manufacturerRepository: ManufacturerRepository) {
      *
      * @return A list of manufacturers.
      */
-    fun findAll(): MutableIterable<Manufacturer> = manufacturerRepository.findAll()
+    fun findAll(): MutableIterable<Manufacturer> {
+        log.debug("Received request to find all manufacturers.")
+        return manufacturerRepository.findAll()
+    }
 
     /**
      * Find a particular [Manufacturer] using the [id].
@@ -26,7 +29,10 @@ class ManufacturerService(val manufacturerRepository: ManufacturerRepository) {
      * @param id The Id of the Manufacturer that you want to look up.
      * @return The found [Manufacturer] or null if none is found.
      */
-    fun findOne(id: Long) = manufacturerRepository.findOne(id)
+    fun findOne(id: Long): Manufacturer? {
+        log.debug("Received request to find manufacturer using id: [{}]", id)
+        return manufacturerRepository.findOne(id)
+    }
 
     /**
      * Converts the [manufacturerDto] to a [Manufacturer] and saves it to the database.
@@ -35,6 +41,8 @@ class ManufacturerService(val manufacturerRepository: ManufacturerRepository) {
      * @return An updated [ManufacturerDto].
      */
     fun save(manufacturerDto: ManufacturerDto): ManufacturerDto {
+        log.debug("Received request to save manufacturer: [{}]", manufacturerDto)
+
         val manufacturer = manufacturerDto.ToManufacturer()
         manufacturerRepository.save(manufacturer)
         return manufacturer.toManufacturerDto()
@@ -49,6 +57,8 @@ class ManufacturerService(val manufacturerRepository: ManufacturerRepository) {
      * @return An updated [ManufacturerDto].
      */
     fun update(id: Long, manufacturerDto: ManufacturerDto): ManufacturerDto {
+        log.debug("Received request to update manufacturer: [{}], with id: [{}]", id)
+
         val manufacturer = manufacturerDto.ToManufacturer(newId = id)
         manufacturerRepository.save(manufacturer)
         return manufacturer.toManufacturerDto()
@@ -57,6 +67,9 @@ class ManufacturerService(val manufacturerRepository: ManufacturerRepository) {
     /**
      * Deletes a [Manufacturer] with the id that matches the [id].
      */
-    fun delete(id: Long) = manufacturerRepository.delete(id)
+    fun delete(id: Long) {
+        log.debug("Received request to delete manufacturer: [{}]")
+        manufacturerRepository.delete(id)
+    }
 }
 

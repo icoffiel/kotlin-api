@@ -14,7 +14,7 @@ class ManufacturerController (val manufacturerService: ManufacturerService) {
     fun index() = manufacturerService.findAll()
 
     @GetMapping("/{id}")
-    fun findOne(@PathVariable("id") id: Long): Manufacturer = manufacturerService.findOne(id)
+    fun findOne(@PathVariable("id") id: Long): Manufacturer? = manufacturerService.findOne(id)
 
     @PostMapping
     fun create(@RequestBody manufacturerDto: ManufacturerDto): ManufacturerDto = manufacturerService.save(manufacturerDto)
