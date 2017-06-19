@@ -18,9 +18,10 @@ class ManufacturerService(val manufacturerRepository: ManufacturerRepository) {
      *
      * @return A list of manufacturers.
      */
-    fun findAll(): MutableIterable<Manufacturer> {
+    fun findAll(): List<ManufacturerDto> {
         log.debug("Received request to find all manufacturers.")
-        return manufacturerRepository.findAll()
+        val manufacturers =  manufacturerRepository.findAll()
+        return manufacturers.map { it.toManufacturerDto() }
     }
 
     /**
@@ -29,9 +30,10 @@ class ManufacturerService(val manufacturerRepository: ManufacturerRepository) {
      * @param id The Id of the Manufacturer that you want to look up.
      * @return The found [Manufacturer] or null if none is found.
      */
-    fun findOne(id: Long): Manufacturer? {
+    fun findOne(id: Long): ManufacturerDto {
         log.debug("Received request to find manufacturer using id: [{}]", id)
-        return manufacturerRepository.findOne(id)
+        val manufacturer = manufacturerRepository.findOne(id)
+        return manufacturer.toManufacturerDto()
     }
 
     /**

@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.*
 class ManufacturerController (val manufacturerService: ManufacturerService) {
 
     @GetMapping
-    fun index() = manufacturerService.findAll()
+    fun index(): List<ManufacturerDto> = manufacturerService.findAll()
 
     @GetMapping("/{id}")
-    fun findOne(@PathVariable("id") id: Long): Manufacturer? = manufacturerService.findOne(id)
+    fun findOne(@PathVariable("id") id: Long): ManufacturerDto = manufacturerService.findOne(id)
 
     @PostMapping
     fun create(@RequestBody manufacturerDto: ManufacturerDto): ManufacturerDto = manufacturerService.save(manufacturerDto)
